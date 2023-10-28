@@ -17,8 +17,9 @@ driver = webdriver.Chrome(options=options)
 headers = ["index","best price","delta","margine"]
 link='https://krunker.io/social.html?p=market&i='
 all_rows=[]
-min_margine=50
-for i in range(100,8000):
+min_margine=100
+mykr=2500
+for i in range(868,8000):
     print("index : "+str(i))
     row=[]
     driver.get(link+str(i))
@@ -28,7 +29,6 @@ for i in range(100,8000):
     #mykr=driver.find_element(By.ID,'profileKR').text
     #mykr=format(mykr)
     #mykr=int(mykr)
-    mykr=2000
     try:
         best=driver.find_element(By.CLASS_NAME,'marketCard').text
         best=format(best)
@@ -43,6 +43,7 @@ for i in range(100,8000):
         second_price=0 
     #debuga=best[:-3].split('\n')[2]
     #debugb=second[:-3]
+    print(str(best_price)+" "+str(second_price))
     if mykr>best_price and second_price>min_margine:
         delta=second_price-best_price
         #guadagno massimo - tassa massima sul prezzo inferiore al secondo
