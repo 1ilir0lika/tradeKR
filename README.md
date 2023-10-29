@@ -16,4 +16,4 @@ https://krunker.io/social.html?p=market&i=index
 ## todo
 
 - [ ] riordinare in base a margine/bestprice
-- [ ] fixare quando si blocca index 867 per sticker animati
+- [x] fixare quando si blocca index 867 per sticker animati
