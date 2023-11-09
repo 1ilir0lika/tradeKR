@@ -13,6 +13,7 @@ https://krunker.io/social.html?p=market&i=index
 ### features 
 - [x] far scrivere tutto su un file con le date(come fatto su mscraper)
 - [ ] fare plot.py che fa il plot dei dati usando ad esempio manim o matplotlib
+- [ ] fare servizio systemctl che avvia al boot lo script e segnala mandando notify-send se ho venduto qualcosa guardando differenza di kr
 - [x] riordinare in base a margine/bestprice oppure in base a margine e basta o bestprice e basta
 - [ ] comparare con avg price consigliato da krunker.io(posso o fare scrape ogni volta oppure guardare questo [file](https://api.krunker.io/webhooks/general/items/prices) )
 - [ ] togliere dalla lista quelli che non hanno un avg price o che il best price é di molto superiore l'ultimo
