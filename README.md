@@ -12,6 +12,7 @@ https://krunker.io/social.html?p=market&i=index
 - [x] fixare quando si blocca index 867 per sticker animati
 ### features 
 - [x] far scrivere tutto su un file con le date(come fatto su mscraper)
+- [ ] fare plot.py che fa il plot dei dati usando adesempio manim o matplotlib
 - [x] riordinare in base a margine/bestprice oppure in base a margine e basta o bestprice e basta
 - [ ] comparare con avg price consigliato da krunker.io(posso o fare scrape ogni volta oppure guardare questo [file](https://api.krunker.io/webhooks/general/items/prices) )
 - [ ] togliere dalla lista quelli che non hanno un avg price o che il best price é di molto superiore l'ultimo
