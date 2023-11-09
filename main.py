@@ -5,6 +5,8 @@ from tabulate import tabulate
 from selenium.common.exceptions import NoSuchElementException
 import time
 import os
+import datetime
+date = datetime.date.today()
 #converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
 def format(str):
     if ',' in str:
@@ -22,7 +24,7 @@ link='https://krunker.io/social.html?p=market&i='
 all_rows=[]
 #DA CAMBIARE IN BASE ALLE PROPRIE PREFERENZE
 #il margine minimo conta anche le tasse della vendita
-min_margine=200
+min_margine=1
 #index minimo e massimo da guardare
 START=100
 END=8000
@@ -87,6 +89,11 @@ for i in range(START,END):
             else:
                 all_rows.append(row)
             os.system("clear")
+            #scrivi su un file
+            file = open('data/' + str(date) + '.pr', "w")
+            file.write(str(all_rows))
+            file.write("\n" + str(date))
+            file.close()
             print(tabulate(all_rows, headers, tablefmt="simple_grid"))
     else:
         pass
