@@ -1,12 +1,5 @@
 # tradeKR
-- fare scrape con soup di tutti i div di classe
-class="marketPrice"
-
-- trovare differenza tra le prima 2 offerte
-
-- farlo per ogni index
-https://krunker.io/social.html?p=market&i=index
-
+trade helper per krunker.io
 ## todo
 ### bug
 - [x] fixare quando si blocca index 867 per sticker animati
