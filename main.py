@@ -8,33 +8,41 @@ import os
 import datetime
 date = datetime.date.today()
 #converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
-def format(str):
-    if ',' in str:
-        str=str.replace(',','')
-    if ' KR' in str:
-        str=str.replace(' KR','')
-    return str    
+strings_to_remove=[',','KR']
+def format_string(string):
+    for literal in strings_to_remove:
+        if literal in string:
+            #se non si riassegna string non rimuove nulla
+            string=string.replace(literal,'')
+    return string    
+username='*default*'
 normal_XPATH='/html/body/div[2]/div[15]/div[2]/div[2]/div[2]'
 animated_XPATH='/html/body/div[2]/div[15]/div[2]/div[2]/div[3]'
+kr_profile_XPATH='/html/body/div[2]/div[9]/div[5]/div[1]/div[3]/div[2]/div[2]'
+link='https://krunker.io/social.html?p=market&i='
+link_profile='https://krunker.io/social.html?p=profile&q='+username
 options = webdriver.ChromeOptions()
 options.add_argument('--user-data-dir=/home/demor/.config/chromium/Profile 2/')
 driver = webdriver.Chrome(options=options)
+#tempo da aspettare prima di cambiare pagina dicendo che non trova l'elemento
+driver.implicitly_wait(2)
 headers = ["index","best price","margine","ratio"]
-link='https://krunker.io/social.html?p=market&i='
 all_rows=[]
 #DA CAMBIARE IN BASE ALLE PROPRIE PREFERENZE
 #il margine minimo conta anche le tasse della vendita
-min_margine=1
+min_margine=200
 #index minimo e massimo da guardare
-START=100
+START=1
 END=8000
 #SE VOGLIO FILTRARE LE SKIN CON AL MASSIMO IL MIO SALDO FACCIO COSÌ,ALTRIMENTI LO DICHIARO A MANO
-#mykr=driver.find_element(By.ID,'profileKR').text
-#mykr=format(mykr)
-#mykr=int(mykr)
-mykr=3000
-#tempo da aspettare prima di cambiare pagina dicendo che non trova l'elemento
-driver.implicitly_wait(2)
+driver.get(link_profile)
+mykr=driver.find_element(By.XPATH,kr_profile_XPATH).text
+#rimuovere \n dopo siccome server per cercare i prezzi e quindi non posso farlo in format_string
+mykr=format_string(mykr).replace('\n','')
+print("mykr : "+mykr)
+#un po'di margine cosí vedo se ci sono affari interessanti anche a prezzi leggermente piú alti
+mykr=int(mykr)+200
+#mykr=2000
 for i in range(START,END):
     print("index : "+str(i))
     row=[]
@@ -42,7 +50,7 @@ for i in range(START,END):
     try:
         best=driver.find_element(By.CLASS_NAME,'marketCard').text
         if (best != ''):
-            best=format(best)
+            best=format_string(best)
             best_price=int(best.split('\n')[2])
         else:
             best_price=0
@@ -54,7 +62,7 @@ for i in range(START,END):
             #se non faccio cosí con gli sticker animati si rompe tutto
             #devo ancora trovare XPATH giusto,ma cosí almeno non si blocca
             second=driver.find_element(By.XPATH,animated_XPATH).text
-        second=format(second)
+        second=format_string(second)
         second_price=int(second)
     except NoSuchElementException:
         second_price=0 
