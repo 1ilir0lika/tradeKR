@@ -16,6 +16,7 @@ options.add_argument('--user-data-dir=/home/demor/.config/chromium/Profile 2/')
 driver = webdriver.Chrome(options=options)
 #tempo da aspettare prima di cambiare pagina dicendo che non trova l'elemento
 driver.implicitly_wait(2)
+nome_file='data/' + str(date) + '.pr'
 headers = ["index","best price","margine","ratio"]
 all_rows=[]
 #converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
@@ -44,6 +45,14 @@ mykr=int(mykr)+kr_margine
 #mykr=2000
 for i in range(START,END):
     print("index : "+str(i))
+    a_file = open(nome_file, "r")
+    list_of_lines = a_file.readlines()
+    list_of_lines[1] = str(i)
+ 
+    a_file = open(nome_file, "w")
+    a_file.writelines(list_of_lines)
+    a_file.close()
+
     row=[]
     driver.get(link+str(i))
     try:
@@ -97,7 +106,7 @@ for i in range(START,END):
                 all_rows.append(row)
             os.system("clear")
             #scrivi su un file
-            file = open('data/' + str(date) + '.pr', "w")
+            file = open(nome_file , "w")
             file.write(str(all_rows))
             file.write("\n" + str(date))
             file.close()
