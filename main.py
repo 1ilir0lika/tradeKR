@@ -18,7 +18,6 @@ driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(2)
 nome_file='data/' + str(date) + '.pr'
 headers = ["index","best price","margine","ratio"]
-all_rows=[]
 #converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
 strings_to_remove=[',','KR']
 def format_string(string):
@@ -29,10 +28,34 @@ def format_string(string):
     return string    
 #DA CAMBIARE IN BASE ALLE PROPRIE PREFERENZE
 #il margine minimo conta anche le tasse della vendita
-min_margine=200
+min_margine=1
 #index minimo e massimo da guardare
-START=400
-END=8000
+START = 1
+END = 8000
+all_rows = []
+
+try:
+    with open(nome_file, 'r') as start_file:
+        list_of_lines = start_file.readlines()
+
+        if len(list_of_lines) >= 2:
+            START = int(list_of_lines[1])
+            all_rows = eval(list_of_lines[0].strip())  # Converti la stringa a una lista
+        else:
+            print(f"Warning: Insufficient lines in the file '{nome_file}'. Using default values.")
+            
+
+except FileNotFoundError:
+    print(f"Warning: The file '{nome_file}' does not exist. Using default values.")
+    with open(nome_file, "w") as file:
+        file.write("[]")  # Inizializza il file con una lista vuota se non esiste
+    START = 1
+    all_rows = []
+
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+
 #SE VOGLIO FILTRARE LE SKIN CON AL MASSIMO IL MIO SALDO FACCIO COSÌ,ALTRIMENTI LO DICHIARO A MANO
 driver.get(link_profile)
 mykr=driver.find_element(By.XPATH,kr_profile_XPATH).text
@@ -47,8 +70,13 @@ for i in range(START,END):
     print("index : "+str(i))
     a_file = open(nome_file, "r")
     list_of_lines = a_file.readlines()
-    list_of_lines[1] = str(i)
- 
+    if len(list_of_lines) >= 2:
+        list_of_lines[1] = str(i)
+    else:
+    # Se la lista ha meno di due elementi, aggiungi elementi vuoti fino a raggiungere la dimensione desiderata
+        list_of_lines.extend([''] * (2 - len(list_of_lines)))
+        list_of_lines[1] = str(i)
+
     a_file = open(nome_file, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
