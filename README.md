@@ -1,6 +1,12 @@
 # tradeKR
 trade helper per krunker.io
-## todo
+
+## usage
+1. metti il tuo nome utente in username
+2. metti i valori che preferisci come ad esempio `min_margine`
+3. ```$ python main.py```
+
+## roadmap
 ### bug
 - [x] fixare quando si blocca index 867 per sticker animati
 ### features 
