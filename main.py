@@ -5,14 +5,6 @@ from tabulate import tabulate
 from selenium.common.exceptions import NoSuchElementException
 import time,os,datetime
 date = datetime.date.today()
-#converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
-strings_to_remove=[',','KR']
-def format_string(string):
-    for literal in strings_to_remove:
-        if literal in string:
-            #se non si riassegna string non rimuove nulla
-            string=string.replace(literal,'')
-    return string    
 username='*default*'
 normal_XPATH='/html/body/div[2]/div[15]/div[2]/div[2]/div[2]'
 animated_XPATH='/html/body/div[2]/div[15]/div[2]/div[2]/div[3]'
@@ -26,11 +18,19 @@ driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(2)
 headers = ["index","best price","margine","ratio"]
 all_rows=[]
+#converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
+strings_to_remove=[',','KR']
+def format_string(string):
+    for literal in strings_to_remove:
+        if literal in string:
+            #se non si riassegna string non rimuove nulla
+            string=string.replace(literal,'')
+    return string    
 #DA CAMBIARE IN BASE ALLE PROPRIE PREFERENZE
 #il margine minimo conta anche le tasse della vendita
 min_margine=200
 #index minimo e massimo da guardare
-START=1
+START=400
 END=8000
 #SE VOGLIO FILTRARE LE SKIN CON AL MASSIMO IL MIO SALDO FACCIO COSÌ,ALTRIMENTI LO DICHIARO A MANO
 driver.get(link_profile)
@@ -39,7 +39,8 @@ mykr=driver.find_element(By.XPATH,kr_profile_XPATH).text
 mykr=format_string(mykr).replace('\n','')
 print("mykr : "+mykr)
 #un po'di margine cosí vedo se ci sono affari interessanti anche a prezzi leggermente piú alti
-mykr=int(mykr)+200
+kr_margine=200
+mykr=int(mykr)+kr_margine
 #mykr=2000
 for i in range(START,END):
     print("index : "+str(i))
