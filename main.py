@@ -3,9 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from tabulate import tabulate
 from selenium.common.exceptions import NoSuchElementException
-import time
-import os
-import datetime
+import time,os,datetime
 date = datetime.date.today()
 #converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
 strings_to_remove=[',','KR']
