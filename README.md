@@ -5,7 +5,7 @@ trade helper per krunker.io
 1. metti il tuo nome utente in username
 2. metti i valori che preferisci come ad esempio `min_margine`
 3. crea la directory data : ```$ bash setup.sh ```
-4. ```$ python main.py``
+4. ```$ python main.py```
 5. dopo che ha raccolto diversi dati per visualizzarli meglio eseguire ```$ python plot.py```
 
 ## roadmap
