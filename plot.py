@@ -14,7 +14,7 @@ nome_file = 'data/' + str(date) + '.pr'
 try:
     with open(nome_file, 'r') as start_file:
         list_of_lines = start_file.readlines()
-        all_rows = eval(list_of_lines[0].strip())[:20]  # Prendi solo i primi 20 elementi
+        all_rows = eval(list_of_lines[0].strip())
         for r in all_rows:
             index.append(r[0])
             prices.append(r[1])
