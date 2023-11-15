@@ -20,6 +20,7 @@ trade helper per krunker.io
 - [x] riordinare in base a margine/bestprice oppure in base a margine e basta o bestprice e basta
   - [ ] comparare con avg price consigliato da krunker.io(posso o fare scrape ogni volta oppure guardare questo [file](https://api.krunker.io/webhooks/general/items/prices) )
   - [ ] togliere dalla lista quelli che non hanno un avg price o che il best price é di molto superiore l'ultimo
+    - [ ] comprarlo in automatico sulla base dell'andamento del prezzo 
   - [ ] direttamente salvare tutti e poi in un secondo momento poterli filtrare sulla base dei parametri indicati
   - [ ] consigliare quali comprare sulla base del prezzo consigliato da krunker e guardando il grafico(fare questo solo se é giá nella lista dei salvati,non per tutti altrimenti ci vanno anni)
 ### ottimizzazioni
