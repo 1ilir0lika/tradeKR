@@ -2,7 +2,7 @@
 trade helper per krunker.io
 
 ## usage
-1. metti il tuo nome utente in username
+1. metti il tuo nome utente in username username='*default*'
 2. metti i valori che preferisci come ad esempio `min_margine`
 3. crea la directory data : ```$ bash setup.sh ```
 4. ```$ python main.py```
