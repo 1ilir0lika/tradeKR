@@ -1,5 +1,6 @@
 import datetime
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import mplcursors
 import webbrowser
 import sys
@@ -8,6 +9,7 @@ date = datetime.date.today()
 index = []
 prices = []
 ratio = []
+average = []
 
 nome_file = 'data/' + str(date) + '.pr'
 
@@ -19,6 +21,7 @@ try:
             index.append(r[0])
             prices.append(r[1])
             ratio.append(r[3])
+            average.append(r[2])  # Consideriamo 'average' come terzo asse
 
 except FileNotFoundError:
     print(f"Error: The file '{nome_file}' does not exist.")
@@ -31,25 +34,33 @@ except Exception as e:
 # URL base
 base_url = 'https://krunker.io/social.html?p=market&i='
 
-# Creazione del plot 2D con trasparenza
-scatter = plt.scatter(prices, ratio, alpha=0.5)
+# Creazione del plot 3D
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot dei punti 3D
+scatter = ax.scatter(prices, ratio, average, alpha=0.5)
 
 # Etichette degli assi
-plt.xlabel('Best Price')
-plt.ylabel('Ratio')
-
-# Regola il layout del grafico per evitare sovrapposizioni di etichette
-plt.tight_layout()
+ax.set_xlabel('Best Price')
+ax.set_ylabel('Ratio')
+ax.set_zlabel('Average')
 
 def on_click(event):
-    contains, info = scatter.contains(event)
-    if contains:
-        ind = info['ind'][0]
-        url = base_url + str(index[ind])
-        webbrowser.open(url)
+    if event.inaxes is not None:
+        ind = event.ind[0] if hasattr(event, 'ind') and len(event.ind) else None
+        if ind is not None:
+            url = base_url + str(index[ind])
+            webbrowser.open(url)
+            # Cambia il colore del punto selezionato in rosso
+            scatter._facecolors3d = 'none'  # Resetta tutti i punti
+            scatter._facecolors3d[ind, :] = (1, 0, 0, 1)  # Imposta il punto selezionato in rosso
+
+            # Aggiorna il plot
+            plt.draw()
 
 # Collega la funzione on_click all'evento di pressione del pulsante
-plt.gcf().canvas.mpl_connect('button_press_event', on_click)
+fig.canvas.mpl_connect('pick_event', on_click)
 
 # Aggiungi le etichette con i valori di index quando si passa sopra ai punti
 cursor = mplcursors.cursor(hover=True)
