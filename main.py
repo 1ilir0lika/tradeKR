@@ -31,6 +31,7 @@ def format_string(string):
 min_margine=200
 #index minimo e massimo da guardare
 DEFAULT_START = 400
+START=DEFAULT_START
 END = 8000
 all_rows = []
 try:
@@ -48,8 +49,6 @@ except FileNotFoundError:
     print(f"Warning: The file '{nome_file}' does not exist. Using default values.")
     with open(nome_file, "w") as file:
         file.write("[]")  # Inizializza il file con una lista vuota se non esiste
-    START = DEFAULT_START
-    all_rows = []
 
 except Exception as e:
     print(f"An error occurred: {e}")
