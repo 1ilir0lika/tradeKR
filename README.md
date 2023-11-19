@@ -13,7 +13,7 @@ trade helper per krunker.io
 ### bug
 - [x] fixare quando si blocca index 867 per sticker animati
 - [x] creare in automatico directory data se non esiste
-- [ ] fixare path per tutti quanti ovvero con ~ anziché lo username
+- [x] fixare path per tutti quanti ovvero con ~ anziché lo username
 ### features 
 - [x] far scrivere tutto su un file con le date(come fatto su mscraper)
   - [x] nel caso si fermasse far riprendere da dove lasciato mettendo all_rows=file.read(1) e start=file.read(2) nel seconda linea index attuale 
