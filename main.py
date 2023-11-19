@@ -25,15 +25,14 @@ def format_string(string):
         if literal in string:
             #se non si riassegna string non rimuove nulla
             string=string.replace(literal,'')
-    return string    
+    return string
 #DA CAMBIARE IN BASE ALLE PROPRIE PREFERENZE
 #il margine minimo conta anche le tasse della vendita
-min_margine=1
+min_margine=200
 #index minimo e massimo da guardare
-START = 1
+DEFAULT_START = 400
 END = 8000
 all_rows = []
-
 try:
     with open(nome_file, 'r') as start_file:
         list_of_lines = start_file.readlines()
@@ -43,13 +42,13 @@ try:
             all_rows = eval(list_of_lines[0].strip())  # Converti la stringa a una lista
         else:
             print(f"Warning: Insufficient lines in the file '{nome_file}'. Using default values.")
-            
+
 
 except FileNotFoundError:
     print(f"Warning: The file '{nome_file}' does not exist. Using default values.")
     with open(nome_file, "w") as file:
         file.write("[]")  # Inizializza il file con una lista vuota se non esiste
-    START = 1
+    START = DEFAULT_START
     all_rows = []
 
 except Exception as e:
@@ -101,7 +100,7 @@ for i in range(START,END):
         second=format_string(second)
         second_price=int(second)
     except NoSuchElementException:
-        second_price=0 
+        second_price=0
     #print(str(best_price)+" "+str(second_price))
     if mykr>best_price and second_price>min_margine:
         delta=second_price-best_price
