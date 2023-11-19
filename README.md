@@ -16,6 +16,7 @@ trade helper per krunker.io
 - [x] far scrivere tutto su un file con le date(come fatto su mscraper)
   - [x] nel caso si fermasse far riprendere da dove lasciato mettendo all_rows=file.read(1) e start=file.read(2) nel seconda linea index attuale 
   - [x] fare plot.py che fa il plot dei dati usando ad esempio manim o matplotlib
+    - [ ] fare tipo menú a tendina dove posso scegliere il minimo di margine che voglio vedere nel grafico/il massimo di elementi/il massimo di prezzo etc 
   - [ ] fare servizio systemctl che avvia al boot lo script e segnala mandando notify-send se ho venduto qualcosa guardando differenza di kr
     - [ ] mandarlo anche con un bot telegram  
 - [x] riordinare in base a margine/bestprice oppure in base a margine e basta o bestprice e basta
@@ -27,7 +28,7 @@ trade helper per krunker.io
 ### ottimizzazioni
 - [ ] implementare multithreading e riscrivere parti del codice vario
 - [ ] skippare appena capisce che non c'é un item anziché aspettare che appaia anche se cé scritto item not found o roba simile
-#### grafica
+### grafica
   - [ ] rendere carino readme
     - [ ] aggiungere video su come usare
   - [ ] tradurre in inglese
