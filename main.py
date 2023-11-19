@@ -12,7 +12,7 @@ kr_profile_XPATH='/html/body/div[2]/div[9]/div[5]/div[1]/div[3]/div[2]/div[2]'
 link='https://krunker.io/social.html?p=market&i='
 link_profile='https://krunker.io/social.html?p=profile&q='+username
 options = webdriver.ChromeOptions()
-options.add_argument('--user-data-dir=/home/demor/.config/chromium/Profile 2/')
+options.add_argument('--user-data-dir=~/.config/chromium/Profile 2/')
 driver = webdriver.Chrome(options=options)
 #tempo da aspettare prima di cambiare pagina dicendo che non trova l'elemento
 driver.implicitly_wait(2)
