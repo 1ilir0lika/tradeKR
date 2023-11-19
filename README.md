@@ -6,7 +6,8 @@ trade helper per krunker.io
 2. metti i valori che preferisci come ad esempio `min_margine`
 3. crea la directory data : ```$ bash setup.sh ```
 4. ```$ python main.py```
-5. dopo che ha raccolto diversi dati per visualizzarli meglio eseguire ```$ python plot.py```
+5. la prima volta,siccome krunker non ti mostra gli item se non sei loggato,dovrai **accettare i cookie e fare il login**,cosí lo sarai sempre anche in tutte le future schede
+6. dopo che ha raccolto diversi dati per visualizzarli meglio eseguire ```$ python plot.py```
 
 ## roadmap
 ### bug
