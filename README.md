@@ -28,6 +28,7 @@ trade helper per krunker.io
 ### ottimizzazioni
 - [ ] implementare multithreading e riscrivere parti del codice vario
 - [ ] skippare appena capisce che non c'é un item anziché aspettare che appaia anche se cé scritto item not found o roba simile
+- [ ] creare blacklist di item che non interessano e da non vedere mai esempio: tutti gli item che costano meno di quanto vuoi guadagnare
 ### grafica
   - [ ] rendere carino readme
     - [ ] aggiungere video su come usare
