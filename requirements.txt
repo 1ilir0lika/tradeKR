@@ -1,0 +1,4 @@
+matplotlib==3.8.2
+mplcursors==0.5.2
+selenium==4.15.2
+tabulate==0.9.0
