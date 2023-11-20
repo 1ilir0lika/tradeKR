@@ -1,15 +1,13 @@
-import datetime
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import mplcursors
-import webbrowser
-import sys
+from tabulate import tabulate
+import mplcursors,datetime,webbrowser,sys
 
 date = datetime.date.today()
 index = []
 prices = []
-ratio = []
-average = []
+ratio_buy = []
+ratio_gain = []
 
 nome_file = 'data/' + str(date) + '.pr'
 
@@ -20,8 +18,8 @@ try:
         for r in all_rows:
             index.append(r[0])
             prices.append(r[1])
-            ratio.append(r[3])
-            average.append(r[2])  # Consideriamo 'average' come terzo asse
+            ratio_gain.append(r[3])
+            ratio_buy.append(r[2])
 
 except FileNotFoundError:
     print(f"Error: The file '{nome_file}' does not exist.")
@@ -39,12 +37,12 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
 # Plot dei punti 3D
-scatter = ax.scatter(prices, ratio, average, alpha=0.5)
+scatter = ax.scatter(prices, ratio_gain, ratio_buy, alpha=0.5)
 
 # Etichette degli assi
 ax.set_xlabel('Best Price')
-ax.set_ylabel('Ratio')
-ax.set_zlabel('Average')
+ax.set_ylabel('Ratio Buy')
+ax.set_zlabel('Ratio Gain')
 
 def on_click(event):
     if event.inaxes is not None:
