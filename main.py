@@ -135,7 +135,7 @@ for i in range(START,END):
                     all_rows.append(row)
             else:
                 all_rows.append(row)
-            #os.system("clear")
+            os.system("clear")
             #scrivi su un file
             file = open(nome_file , "w")
             file.write(str(all_rows))
