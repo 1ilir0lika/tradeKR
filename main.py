@@ -14,6 +14,7 @@ link='https://krunker.io/social.html?p=market&i='
 link_profile='https://krunker.io/social.html?p=profile&q='+username
 link_last_price='https://api.krunker.io/webhooks/general/items/prices'
 last_prices = requests.get(link_last_price).json()
+#print(last_prices[0])
 
 options = webdriver.ChromeOptions()
 # Ottieni il percorso della directory home dell'utente
@@ -23,7 +24,9 @@ driver = webdriver.Chrome(options=options)
 #tempo da aspettare prima di cambiare pagina dicendo che non trova l'elemento
 driver.implicitly_wait(2)
 nome_file='data/' + str(date) + '.pr'
-headers = ["index","best price","last price","ratio"]
+#ratio gain-> margin/best price 
+#ratio buy-> last_price/best price 
+headers = ["index","best price","ratio buy","ratio gain"]
 #converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
 strings_to_remove=[',','KR']
 def format_string(string):
@@ -34,7 +37,7 @@ def format_string(string):
     return string
 #DA CAMBIARE IN BASE ALLE PROPRIE PREFERENZE
 #il margine minimo conta anche le tasse della vendita
-min_margine=200
+min_margine=1
 #index minimo e massimo da guardare
 DEFAULT_START = 400
 START=DEFAULT_START
@@ -107,16 +110,15 @@ for i in range(START,END):
         second_price=int(second)
     except NoSuchElementException:
         second_price=0
-    #print(str(best_price)+" "+str(second_price))
     if mykr>best_price and second_price>min_margine:
         delta=second_price-best_price
         #guadagno massimo - tassa massima sul prezzo inferiore al secondo
         margine=delta-round((second_price-1)/10)
-        if margine>min_margine and best_price<mykr:
+        if margine>min_margine and best_price<mykr and type(last_prices[i])==int:
             row.append(i)
             row.append(best_price)
             #row.append(delta)
-            row.append(last_prices[i])
+            row.append(last_prices[i]/best_price)
             ratio=margine/best_price
             row.append(ratio)
             #non usare append ma fare insert ed usare index in base a come rapporto margine/costo
