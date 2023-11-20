@@ -26,6 +26,7 @@ trade helper per krunker.io
   - [ ] togliere dalla lista quelli che non hanno un last price o che il best price é di molto superiore l'ultimo
     - [ ] comprarlo in automatico sulla base dell'andamento del prezzo 
   - [ ] consigliare quali comprare sulla base del prezzo consigliato da krunker e guardando il grafico(fare questo solo se é giá nella lista dei salvati,non per tutti altrimenti ci vanno anni)
+- [ ] possibilitá di vedere un particolare giorno salvato con plot.py 
 ### ottimizzazioni
 - [ ] implementare multithreading e riscrivere parti del codice vario
 - [ ] skippare appena capisce che non c'é un item anziché aspettare che appaia anche se cé scritto item not found o roba simile
