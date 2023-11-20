@@ -3,7 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from tabulate import tabulate
 from selenium.common.exceptions import NoSuchElementException
-import time,os,datetime
+import time,os,datetime,requests,json
+
 date = datetime.date.today()
 username='*default*'
 normal_XPATH='/html/body/div[2]/div[15]/div[2]/div[2]/div[2]'
@@ -11,16 +12,18 @@ animated_XPATH='/html/body/div[2]/div[15]/div[2]/div[2]/div[3]'
 kr_profile_XPATH='/html/body/div[2]/div[9]/div[5]/div[1]/div[3]/div[2]/div[2]'
 link='https://krunker.io/social.html?p=market&i='
 link_profile='https://krunker.io/social.html?p=profile&q='+username
+link_last_price='https://api.krunker.io/webhooks/general/items/prices'
+last_prices = requests.get(link_last_price).json()
+
 options = webdriver.ChromeOptions()
 # Ottieni il percorso della directory home dell'utente
 home_dir = os.path.expanduser('~')
 options.add_argument('--user-data-dir='+home_dir+'/.config/chromium/Profile 2/')
-print(home_dir+'/.config/chromium/Profile 2/')
 driver = webdriver.Chrome(options=options)
 #tempo da aspettare prima di cambiare pagina dicendo che non trova l'elemento
 driver.implicitly_wait(2)
 nome_file='data/' + str(date) + '.pr'
-headers = ["index","best price","margine","ratio"]
+headers = ["index","best price","last price","ratio"]
 #converti prezzo che trovi sul sito in una stringa che posso trasformare usando la funzione int()
 strings_to_remove=[',','KR']
 def format_string(string):
@@ -68,6 +71,7 @@ kr_margine=200
 mykr=int(mykr)+kr_margine
 #mykr=2000
 for i in range(START,END):
+    #print(str(i)+' '+str(last_prices[i]))
     print("index : "+str(i))
     a_file = open(nome_file, "r")
     list_of_lines = a_file.readlines()
@@ -112,10 +116,9 @@ for i in range(START,END):
             row.append(i)
             row.append(best_price)
             #row.append(delta)
-            row.append(margine)
+            row.append(last_prices[i])
             ratio=margine/best_price
             row.append(ratio)
-            print(all_rows)
             #non usare append ma fare insert ed usare index in base a come rapporto margine/costo
             #controllare ogni riga partendo dalla prima se ratio é maggiore,se é cosí insert a quell'index altrimenti aumenta index e fai check
             leng=len(all_rows)-1
@@ -123,7 +126,6 @@ for i in range(START,END):
             if (leng>=0):
                 k=0
                 while k<=leng:
-                    print(str(ratio)," ",str(all_rows[k][3]))
                     if(ratio>=all_rows[k][3]):
                         all_rows.insert(k,row)
                         break
@@ -133,7 +135,7 @@ for i in range(START,END):
                     all_rows.append(row)
             else:
                 all_rows.append(row)
-            os.system("clear")
+            #os.system("clear")
             #scrivi su un file
             file = open(nome_file , "w")
             file.write(str(all_rows))
